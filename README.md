@@ -1,10 +1,29 @@
 # multi-agent-acceptance
 
+![When an AI agent says "done", it only means the round ended.](assets/social-preview.png)
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-E3B34C.svg)](LICENSE)
+![Works with Claude Code](https://img.shields.io/badge/works%20with-Claude%20Code-111214.svg)
+![Works with Codex](https://img.shields.io/badge/works%20with-Codex-111214.svg)
+[![Follow on X](https://img.shields.io/badge/follow-%40Logan790040400-111214.svg?logo=x)](https://x.com/Logan790040400)
+
 **When an AI agent says "done", it only means the round ended — not that it passed.**
 
 A skill for running a coordinator agent that dispatches work to executor agents (Codex, Claude Code, etc.) and verifies the results itself instead of trusting self-reports.
 
 Distilled from real multi-agent game-dev work: one coordinator, up to three executor machines, ~90 task briefs in a week.
+
+## How it works
+
+![Architecture: coordinator dispatches, executors never commit, coordinator accepts](assets/architecture.png)
+
+The coordinator turns a one-line request into a task brief, dispatches it, and accepts the result by looking at screenshots, the diff and the regression output itself. Executors do the work but never commit. A plain script (no model) watches the logs and only wakes the coordinator when something needs attention.
+
+## Rule out false failures first
+
+![False failures: symptom, first guess, real cause, new rule](assets/false-failures.png)
+
+Before blaming the code, check the environment. The full checklist is in [`SKILL.md`](SKILL.md#6-rule-out-false-failures-first).
 
 ## What's inside
 
