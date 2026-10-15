@@ -40,6 +40,10 @@ Agents that don't support `SKILL.md` can use it as part of the system prompt.
 
 AI 说"做完了"，只代表这一轮结束，不代表验收通过。这是一套多 Agent 派活与验收流程：协调端只派活、看图、入库，执行端只干活、不提交。
 
+## Author
+
+Made by [@Logan790040400](https://x.com/Logan790040400) — feedback and issues welcome.
+
 ## License
 
 MIT
