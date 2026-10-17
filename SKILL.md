@@ -30,7 +30,8 @@ Date. Model [model] [effort level], time limit [N] minutes.
 ## Boundaries and stop conditions
 - Do not commit, revert, or update the project yourself.
 - No code changes by default; only where a section explicitly allows it.
-  If you change code, list the files and run the full regression suite.
+  If you change code, list the files and run the full regression suite
+  (name the exact script, e.g. `[full-suite script]`; any other suite does not count).
 - Before each section and each batch of screenshots, read the coordinator notes and follow them.
 - If the stop file exists, stop.
 - If the editor / app under test exits or hangs: do not relaunch it.
@@ -65,6 +66,12 @@ Do not commit.
 - For visual effects: at least one screenshot at each of two window sizes. Animations cannot be judged from stills alone.
 - Once a criterion passes, **it must not be tightened until the effect disappears** (prevents "cleaning up" the effect out of existence).
 
+### Continuation rounds and renamed rounds
+
+- In a continuation round, write: "Append to the existing change list. Do not overwrite it." At acceptance, compare the entry count with the previous round.
+- If a new brief is generated from an old one, search it for the old round name before dispatching. The count must be **0**. An executor that sees the old name will act on the old round, including editing files that were already merged.
+- If a new test references a previous round's deliverable, that deliverable must already be merged or be listed in this round's change list. Otherwise it passes only on the machine where the file happens to exist.
+
 ### Copy proven steps verbatim
 
 - When switching to a cheaper or lower-quota model, copy the waiting, launch, and retry steps **word for word**. Save on the model, never on the steps.
@@ -72,6 +79,8 @@ Do not commit.
 - Confirm the app under test is closed before submitting.
 
 ## 3. Dispatching
+
+**Read the remaining quota before every dispatch.** If any account the round depends on is below 30%, do not dispatch; report to the user instead. A round that dies mid-way leaves unverified half-changes behind.
 
 **Dispatching and attaching a monitor are one step.** A task without a monitor has not been dispatched. This also applies to re-dispatching.
 
@@ -83,16 +92,22 @@ Use a fixed script, not a model, for polling:
 
 - Check each executor's log every 2 minutes.
 - Send a message directly on: started, merged, no output for 20 minutes, disconnected, popup/dialog.
+- Also alert on: **no progress for 30 minutes** (output continues but nothing advances), and **the same error 4 times** in one round (looping).
+- Derive these thresholds from your own logs, not by feel. Example basis: across 57 implementation rounds, duration median was 42 min, P75 64 min, max 128 min; across 91 logs, the same error appeared at most 4 times (median 1, P95 2), and the one round that hit 4 was genuinely stuck.
+- Alert on remaining quota at 30%, not at 0%.
 - Wake the coordinator only when acceptance is needed, something is stuck, or something is abnormal.
 - Record "already notified" so the same event is not repeated every poll.
 
 ## 5. Acceptance
 
-When an executor submits, the coordinator **personally** does three things:
+When an executor submits, first check that the evidence belongs to this round: **task brief ID, code identifier (commit/revision), and run time.** If any of the three does not match, the round does not pass. Screenshots taken before the last fix are not evidence.
+
+Then the coordinator **personally** does three things:
 
 1. **Look at the images.** Open the screenshots; crop to a single object when needed. Never substitute the executor's text description for looking.
 2. **Check the diff.** Are the changed files within scope? Anything extra?
-3. **Count the regression.** Read the last line of the regression output and confirm everything passed.
+3. **Count the regression.** Read the last line of the regression output and confirm everything passed. Only the full-suite script named in the brief counts. Example: an executor reported 224/224 from a team-level suite; the full suite was 139/141.
+4. **Treat adjectives as void.** If the delivery says "clearly visible" or "fixed", ignore the sentence and check the image. Example: an executor wrote "clearly visible"; cropped, the required outer ring did not exist. It had mistaken the existing decorative frame for its own work.
 
 Decision:
 - Everything passes → merge.
@@ -112,6 +127,8 @@ The first guess is often wrong. Before blaming a code conflict or a code bug, ch
 | "Failed to start" | Did the agent conclude before startup finished? |
 | Character / object won't move | Is the input method right (tap vs. press-and-hold)? |
 | No activity for a long time | Is the monitor actually attached? |
+| Passes on one machine, fails everywhere after merge | Does a new test reference a file that exists only on that machine's disk? |
+| Same evidence passes one check and fails another | Does the brief still carry an old round name? |
 | Odd data | Investigate the collection script read-only first, then decide whether the app itself is at fault |
 
 Investigate **read-only**. Dispatch a fix task only after the cause is confirmed.

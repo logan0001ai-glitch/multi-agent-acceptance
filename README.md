@@ -31,6 +31,7 @@ Before blaming the code, check the environment. The full checklist is in [`SKILL
 |---|---|
 | [`SKILL.md`](SKILL.md) | The full workflow: briefs, dispatch, monitoring, acceptance, false-failure checklist, issue logging |
 | [`templates/task-brief.md`](templates/task-brief.md) | A copy-paste task brief template |
+| [`CHANGELOG.md`](CHANGELOG.md) | Every rule added, with the failure that caused it |
 
 ## The rules in one screen
 
@@ -42,6 +43,11 @@ Before blaming the code, check the environment. The full checklist is in [`SKILL
 6. When switching to a cheaper model, copy the waiting steps verbatim.
 7. Dispatching and attaching a monitor are one step.
 8. If you promise a default action at a deadline, set the timer right away.
+9. "Full regression" names one script. Only that output line counts.
+10. Read the quota before dispatching. Below 30%, stop and report.
+11. Evidence must match the brief ID, code revision and run time, or the round fails.
+
+What changed and why: [`CHANGELOG.md`](CHANGELOG.md). New rules are added every week from real failures.
 
 ## Install
 
