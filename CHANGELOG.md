@@ -2,6 +2,24 @@
 
 Every rule here comes from a real round that went wrong. Dates are US Eastern.
 
+## 2026-10-19
+
+### Briefs
+- **"Needs human" no longer means "stop".** Executors ended the session after writing the marker, voiding the round. They now keep working, poll every 2 minutes, wait at most 40 minutes, then submit.
+- **Windowed mode for fullscreen captures.** True fullscreen crashed sessions.
+- **Progress file and stamped evidence are required in every brief.** Phases ("full regression running", "run N live") let monitoring relax its thresholds; stale screenshots must be re-captured on the final code.
+- **Write the behavior, not a slogan.** "Don't change other people's tests" and "wait in place" were read literally and backfired; the skill now gives the wording to use instead.
+
+### Dispatch and monitoring
+- **Quota: trust only records with a number; stop at 70% used.** An empty dashboard hid an exhausted account. Alerts now fire at 50/70/85/100% used, plus a burn-rate warning.
+- **Dispatch checklist.** A round goes out only when it is ready, has no file conflicts, its dependencies are committed, and the target machine has the merged assets.
+- **Phase-aware stuck detection.** Missing progress file counts as no progress; thresholds relax for commit/merge and regression/live phases; the clock pauses while waiting on people.
+- **Monitors run on an always-on service, not inside a conversation.** Launch scripts are derived from the template, never copied from another machine.
+
+### Acceptance
+- **Compare the change list against the executor's workspace.** Result files from other rounds are removed; untracked tests and tools are listed or marked "not delivered". Run a regression group after a manual conflict fix.
+- Ten new rows in the symptom table.
+
 ## 2026-10-17
 
 ### Acceptance

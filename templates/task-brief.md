@@ -9,7 +9,10 @@ Date. Model [model] [effort level], time limit [N] minutes.
 - Continuation round: append to the existing change list. Do not overwrite it.
 - Before each section and each batch of screenshots, read the coordinator notes and follow them.
 - If the stop file exists, stop.
-- If the editor / app under test exits or hangs: do not relaunch it. Write a "needs human" marker and stop.
+- If the editor / app under test exits or hangs: do not relaunch it. Write a "needs human" marker. Do NOT end the session: keep doing whatever else you can; if nothing is left, check every 2 minutes whether the coordinator has deleted the marker. Once deleted, read the latest coordinator notes and continue. Wait at most 40 minutes, then submit. Ending the session voids the whole round.
+- Fullscreen captures use windowed mode. Never use true fullscreen.
+- Create a progress file as soon as work starts. Append a checkpoint after every batch of screenshots and every live run. Set the phase before the full regression ("full regression running") and before each live run ("run N live").
+- Stamp every screenshot with the brief ID, code identifier, and run start time. If code changes afterwards, re-capture and re-stamp.
 - Stop only if new code writes bad data. External failures do not stop the run; record them.
 - Back up before starting and record a checksum; compare again at the end. Do not restore.
 - No real purchases, real reward claims, or other irreversible actions.
