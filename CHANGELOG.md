@@ -17,6 +17,7 @@ Every rule here comes from a real round that went wrong. Dates are US Eastern.
 - **Monitors run on an always-on service, not inside a conversation.** Launch scripts are derived from the template, never copied from another machine.
 
 ### Acceptance
+- **Verify evidence before committing.** After the commit the revision changes and can no longer be used to check the screenshots retroactively.
 - **Compare the change list against the executor's workspace.** Result files from other rounds are removed; untracked tests and tools are listed or marked "not delivered". Run a regression group after a manual conflict fix.
 - Ten new rows in the symptom table.
 
