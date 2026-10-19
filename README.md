@@ -44,7 +44,7 @@ Before blaming the code, check the environment. The full checklist is in [`SKILL
 7. Dispatching and attaching a monitor are one step.
 8. If you promise a default action at a deadline, set the timer right away.
 9. "Full regression" names one script. Only that output line counts.
-10. Read the quota before dispatching. Below 30%, stop and report.
+10. Read the quota before dispatching. At 70% used, stop and ask. Trust only records that carry a number.
 11. Evidence must match the brief ID, code revision and run time, or the round fails.
 
 What changed and why: [`CHANGELOG.md`](CHANGELOG.md). New rules are added every week from real failures.
