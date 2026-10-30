@@ -188,6 +188,10 @@ The first guess is often wrong. Before blaming a code conflict or a code bug, ch
 | Passes locally, fails elsewhere; change list looked complete | Are there changed tests or untracked tools outside the list? Compare the workspace |
 | Always-on service fails every automatic run with "invalid parameter" | Is a parameter it sends now rejected by the platform? Not a model or network problem |
 | Model service rejects mid-run and the session exits | Did the network route land in a blocked region? |
+| Full regression passes, but most screenshots the report cites were not taken on the final code | Were scripts edited or assets imported after the captures? Re-capture on the final code only; no code changes |
+| Monitor reports a continuation round as stuck while its progress files are still updating | Is the continuation round still writing under the original round's file names, so the monitor's prefix never matches? |
+| A round stops right at start for a dirty baseline, with no work done | Are the changed files another channel's uncommitted work on the same machine, already declared as parallel in the brief? |
+| Evidence check fails or the full regression mixes code while two rounds share one machine | Do the evidence fingerprint and the regression cover the whole workspace instead of this round's own files? |
 
 Investigate **read-only**. Dispatch a fix task only after the cause is confirmed.
 

@@ -2,6 +2,14 @@
 
 Every rule here comes from a real round that went wrong. Dates are US Eastern.
 
+## 2026-10-30
+
+### Symptom table
+- **Screenshots cited by a passing report were not taken on the final code.** Scripts were edited or assets imported after the captures. Re-capture on the final code only; no code changes.
+- **Continuation round flagged as stuck while its progress files were updating.** It kept writing under the original round's file names, so the monitor's prefix never matched.
+- **Round stopped at start for a dirty baseline.** The changed files were another channel's uncommitted work on the same machine, already declared as parallel in the brief.
+- **Evidence check failed, or the full regression mixed code, with two rounds on one machine.** The evidence fingerprint and the regression covered the whole workspace instead of this round's own files.
+
 ## 2026-10-19
 
 ### Briefs
