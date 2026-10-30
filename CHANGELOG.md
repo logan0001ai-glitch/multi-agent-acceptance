@@ -4,11 +4,18 @@ Every rule here comes from a real round that went wrong. Dates are US Eastern.
 
 ## 2026-10-30
 
+No rule or template changes this week. Four false failures went into the symptom table; the fixes below were one-off instructions in individual briefs, not new rules.
+
 ### Symptom table
-- **Screenshots cited by a passing report were not taken on the final code.** Scripts were edited or assets imported after the captures. Re-capture on the final code only; no code changes.
-- **Continuation round flagged as stuck while its progress files were updating.** It kept writing under the original round's file names, so the monitor's prefix never matched.
-- **Round stopped at start for a dirty baseline.** The changed files were another channel's uncommitted work on the same machine, already declared as parallel in the brief.
-- **Evidence check failed, or the full regression mixed code, with two rounds on one machine.** The evidence fingerprint and the regression covered the whole workspace instead of this round's own files.
+- **Cited screenshots were not taken on the final code.** A round reported 10 conclusions and a full regression of 222/222, but only 9 of the 47 screenshots it cited came from the final code: two scripts were edited and an image was imported after the captures. Under the existing rule it did not pass and was not committed. A capture-only round (no code changes) re-took all 76 cited screenshots on the final code and passed the evidence check.
+- **A continuation round was flagged as stuck while it was still working.** It kept writing progress under the original round's two file names, so the monitor, looking for the continuation round's prefix, saw nothing. All 10 items were done and the full regression was running.
+- **A round stopped at start for a dirty baseline, with no work done.** The 13 changed scripts were another channel's uncommitted work on the same machine, and the brief had already declared the two would run in parallel. The general "dirty baseline means stop" rule contradicted the brief.
+- **Two rounds on one machine broke each other's evidence.** Their files did not overlap (15 and 5), but the evidence fingerprint covered every change in the workspace, so the other round's writes made this round's screenshots look stale, and the full regression ran on both rounds' code mixed together.
+
+### One-off instructions (not rules)
+- **Parallel exemption.** The other channel's files are not touched, reverted, formatted or listed; regression failures that land only on them are reported separately, not fixed.
+- **Evidence on a shared machine.** If the only files changed since capture belong to the other round, the evidence passes. Before committing, move the other round's files aside and run the full suite as the final gate.
+- **Disconnects.** Two live runs were closed mid-way by the remote server (about 13 minutes and 1 minute in). For a continuation, complete 60-second windows before the log's last write still count; with fewer than 3 valid windows in a phase, the result is marked "partial".
 
 ## 2026-10-19
 
